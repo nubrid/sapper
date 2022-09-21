@@ -1,0 +1,162 @@
+{
+  "name": "nubrid",
+  "description": "Nubrid",
+  "version": "0.0.1",
+  "private": true,
+  "author": "Randell Rivera",
+  "scripts": {
+    "// ============================== CLI ============================== ": "",
+    "// ============================== BATCH JOBS ============================== ": "",
+    "// ============================== SERVERS ============================== ": "",
+    "dev": "sapper dev",
+    "build": "sapper build",
+    "export": "sapper export",
+    "start": "node __sapper__/build",
+    "cy:run": "cypress run",
+    "cy:open": "cypress open",
+    "test": "run-p --race dev cy:run"
+  },
+  "// ============================== BROWSERSLIST ============================== ": "",
+  "browserslist": [
+    "defaults and not dead and not Android 4.4.3-4.4.4 and not IE 11 and not IE_Mob 11 and not Op_Mini all and not And_QQ 1.2 and not Samsung 4",
+    "Chrome >= 58",
+    "Edge >= 14",
+    "Firefox >= 54",
+    "Opera >= 55",
+    "Safari >= 10"
+  ],
+  "// ============================== PRETTIER ============================== ": "",
+  "prettier": {
+    "semi": false,
+    "svelteBracketNewLine": true,
+    "svelteSortOrder": "scripts-markup-styles",
+    "svelteStrictMode": true,
+    "trailingComma": "all"
+  },
+  "// ============================== ESLINT ============================== ": "",
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "commonjs": true,
+      "es6": true,
+      "node": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:compat/recommended",
+      "prettier",
+      "stylelint-config-prettier"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "ecmaFeatures": {
+        "globalReturn": true
+      },
+      "sourceType": "module"
+    },
+    "plugins": [
+      "compat",
+      "immutable"
+    ],
+    "rules": {
+      "immutable/no-let": 1,
+      "immutable/no-this": 1,
+      "immutable/no-mutation": 1,
+      "no-var": 2,
+      "no-undef": 1,
+      "no-param-reassign": 2,
+      "lodash/prefer-lodash-method": [
+        2,
+        {
+          "ignoreMethods": [
+            "endsWith",
+            "filter",
+            "forEach",
+            "startsWith",
+            "trim"
+          ]
+        }
+      ],
+      "linebreak-style": [
+        2,
+        "windows"
+      ],
+      "no-bitwise": 2,
+      "eqeqeq": 2,
+      "guard-for-in": 2,
+      "no-extend-native": 2,
+      "wrap-iife": 2,
+      "no-use-before-define": 2,
+      "new-cap": 2,
+      "no-caller": 2,
+      "no-new": 2,
+      "no-plusplus": 2,
+      "quotes": [
+        2,
+        "double"
+      ],
+      "strict": 0,
+      "max-params": [
+        2,
+        5
+      ],
+      "max-depth": [
+        2,
+        5
+      ],
+      "max-statements": [
+        2,
+        25
+      ],
+      "complexity": [
+        2,
+        10
+      ],
+      "no-eval": 2,
+      "block-scoped-var": 2,
+      "no-iterator": 2,
+      "no-loop-func": 2,
+      "no-multi-str": 2,
+      "no-proto": 2,
+      "no-script-url": 2,
+      "no-shadow": [
+        2,
+        {
+          "hoist": "all",
+          "allow": [
+            "event"
+          ]
+        }
+      ],
+      "dot-notation": 2
+    },
+    "globals": {}
+  },
+  "eslintIgnore": [],
+  "// ============================== DEPENDENCIES ============================== ": "",
+  "dependencies": {
+    "compression": "^1.7.1",
+    "polka": "next",
+    "sirv": "^1.0.0"
+  },
+  "// ============================== DEV DEPENDENCIES ============================== ": "",
+  "devDependencies": {
+    "@babel/core": "^7.11.1",
+    "@babel/preset-env": "^7.11.0",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-compat": "^3.8.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.0.5",
+    "sapper": "^0.27.0",
+    "stylelint-config-prettier": "^8.0.2",
+    "svelte": "^3.0.0",
+    "svelte-loader-hot": "^0.3.0",
+    "svelte-preprocess": "^4.0.10",
+    "webpack": "^4.7.0",
+    "webpack-modules": "^1.0.0"
+  }
+}

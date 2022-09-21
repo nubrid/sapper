@@ -1,0 +1,48 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[svelte]": {
+    "editor.defaultFormatter": "svelte.svelte-vscode"
+  },
+  "editor.formatOnPaste": true,
+  "editor.formatOnSave": true,
+  "editor.fontFamily": "'Fira Code', Consolas, 'Courier New', monospace",
+  "editor.fontLigatures": true,
+  "editor.fontSize": 13,
+  "editor.formatOnType": true,
+  "editor.lineHeight": 25,
+  "editor.minimap.showSlider": "always",
+  "editor.renameOnType": true,
+  "editor.renderControlCharacters": true,
+  "editor.renderWhitespace": "all",
+  "editor.tabSize": 2,
+  "editor.wordWrap": "on",
+  "eslint.alwaysShowStatus": true,
+  "eslint.enable": true,
+  "explorer.openEditors.visible": 0,
+  "git.autofetch": true,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
+  "javascript.validate.enable": false,
+  "search.exclude": {
+    "**/node_modules": true
+  },
+  "telemetry.enableTelemetry": false,
+  "todohighlight.keywords": [
+    {
+      "text": "NOTE:",
+      "color": "white",
+      "backgroundColor": "blue"
+    },
+    {
+      "text": "HACK:",
+      "color": "white",
+      "backgroundColor": "red"
+    }
+  ],
+  "workbench.activityBar.visible": false,
+  "workbench.sideBar.location": "right",
+  "editor.guides.indentation": true
+}
