@@ -1,22 +1,22 @@
+// SAPPER (20201017)
 const webpack = require("webpack")
 const WebpackModules = require("webpack-modules")
-// TODO:REVIEW const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
-// TODO:REVIEW const CleanPlugin = require("clean-webpack-plugin")
-// TODO:REVIEW const CopyPlugin = require("copy-webpack-plugin")
 const path = require("path")
 const config = require("sapper/config/webpack.js")
 const pkg = require("./package.json")
 
-const { scss } = require("svelte-preprocess")
-
 const mode = process.env.NODE_ENV
 const dev = mode === "development"
-const hotReload = dev && process.env.HOT != 0
 
 const alias = { svelte: path.resolve("node_modules", "svelte") }
 const extensions = [".mjs", ".js", ".json", ".svelte", ".html"]
 const mainFields = ["svelte", "module", "browser", "main"]
+const fileLoaderRule = {
+  test: /\.(png|jpe?g|gif)$/i,
+  use: ["file-loader"],
+}
 
+// eslint-disable-next-line immutable/no-mutation
 module.exports = {
   client: {
     entry: config.client.entry(),
@@ -25,46 +25,24 @@ module.exports = {
     module: {
       rules: [
         {
-          test: /\.(js|mjs)$/,
-          loader: "babel-loader",
-          exclude: /node_modules\/(?!svelte)/,
-          options: {
-            presets: [
-              [
-                "@babel/env",
-                {
-                  loose: true,
-                  modules: false,
-                },
-              ],
-            ],
-            plugins: [],
+          test: /\.(svelte|html)$/,
+          use: {
+            loader: "svelte-loader",
+            options: {
+              ...require("./svelte.config"),
+              dev,
+              hydratable: true,
+              hotReload: false, // pending https://github.com/sveltejs/svelte/issues/2377
+            },
           },
         },
-        {
-          test: /\.(svelte|html)$/,
-          exclude: /node_modules\/(?!svelte)/,
-          use: [
-            "babel-loader",
-            {
-              loader: "svelte-loader-hot",
-              options: {
-                dev, // NOTE: dev mode is REQUIRED for HMR
-                hydratable: true,
-                hotReload,
-                hotOptions: {
-                  optimistic: true,
-                },
-              },
-            },
-          ],
-        },
+        fileLoaderRule,
       ],
     },
     mode,
     plugins: [
-      // TODO:REVIEW https://github.com/sveltejs/svelte/issues/3632
-      hotReload && new webpack.HotModuleReplacementPlugin(),
+      // pending https://github.com/sveltejs/svelte/issues/2377
+      // dev && new webpack.HotModuleReplacementPlugin(),
       new webpack.DefinePlugin({
         "process.browser": true,
         "process.env.NODE_ENV": JSON.stringify(mode),
@@ -84,15 +62,17 @@ module.exports = {
         {
           test: /\.(svelte|html)$/,
           use: {
-            // NOTE: you don't need svelte-loader-hot here, but it avoids having to also install svelte-loader
-            loader: "svelte-loader-hot",
+            loader: "svelte-loader",
             options: {
+              ...require("./svelte.config"),
               css: false,
               generate: "ssr",
+              hydratable: true,
               dev,
             },
           },
         },
+        fileLoaderRule,
       ],
     },
     mode,

@@ -4,6 +4,7 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  // NOTE: https://github.com/sveltejs/language-tools/blob/01d281afffdf797cb13544003a70437494bb8414/docs/README.md#my-code-does-not-get-formatted
   "[svelte]": {
     "editor.defaultFormatter": "svelte.svelte-vscode"
   },
@@ -18,16 +19,33 @@
   "editor.renameOnType": true,
   "editor.renderControlCharacters": true,
   "editor.renderWhitespace": "all",
+  "editor.showUnused": false,
   "editor.tabSize": 2,
+  "editor.tokenColorCustomizations": {
+    "textMateRules": [
+      {
+        "scope": [
+          "meta.style.svelte",
+          "meta.script.svelte",
+          "keyword.control.svelte"
+        ],
+        "settings": {
+          "foreground": "#00FF00"
+        }
+      }
+    ]
+  },
   "editor.wordWrap": "on",
   "eslint.alwaysShowStatus": true,
-  "eslint.enable": true,
+  "eslint.validate": ["javascript", "svelte"],
   "explorer.openEditors.visible": 0,
+  "files.eol": "\r\n",
   "git.autofetch": true,
   "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "javascript.validate.enable": false,
   "search.exclude": {
-    "**/node_modules": true
+    "**/node_modules": true,
+    "__sapper__": true
   },
   "telemetry.enableTelemetry": false,
   "todohighlight.keywords": [

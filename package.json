@@ -8,120 +8,142 @@
     "// ============================== CLI ============================== ": "",
     "// ============================== BATCH JOBS ============================== ": "",
     "// ============================== SERVERS ============================== ": "",
+    "// ============================== SAPPER (20201017) ============================== ": "",
     "dev": "sapper dev",
     "build": "sapper build",
     "export": "sapper export",
-    "start": "node __sapper__/build",
-    "cy:run": "cypress run",
-    "cy:open": "cypress open",
-    "test": "run-p --race dev cy:run"
+    "start": "node __sapper__/build"
   },
   "// ============================== BROWSERSLIST ============================== ": "",
-  "browserslist": [
-    "defaults and not dead and not Android 4.4.3-4.4.4 and not IE 11 and not IE_Mob 11 and not Op_Mini all and not And_QQ 1.2 and not Samsung 4",
-    "Chrome >= 58",
-    "Edge >= 14",
-    "Firefox >= 54",
-    "Opera >= 55",
-    "Safari >= 10"
-  ],
-  "// ============================== PRETTIER ============================== ": "",
-  "prettier": {
-    "semi": false,
-    "svelteBracketNewLine": true,
-    "svelteSortOrder": "scripts-markup-styles",
-    "svelteStrictMode": true,
-    "trailingComma": "all"
+  "browserslist": {
+    "production": [
+      "defaults or > 0.2% in my stats and supports es6 and not IE 11 and not Op_Mini all and not baidu < 7.13 and not kaios < 2.6",
+      "last 2 Chrome major versions",
+      "last 2 Edge major versions",
+      "last 2 Firefox major versions",
+      "last 2 Opera major versions",
+      "last 2 Safari major versions"
+    ],
+    "modern": [
+      "defaults or > 0.2% in my stats and supports es6 and not IE 11 and not Op_Mini all and not baidu < 7.13 and not kaios < 2.6",
+      "last 2 Chrome versions",
+      "last 2 Edge versions",
+      "last 2 Firefox versions",
+      "last 2 Opera versions",
+      "last 2 Safari versions"
+    ],
+    "ssr": [
+      "maintained node versions"
+    ]
   },
-  "// ============================== ESLINT ============================== ": "",
+  "// TODO: Revisit parser, rules ============================== ESLINT ============================== ": "",
   "eslintConfig": {
     "env": {
       "browser": true,
       "commonjs": true,
       "es6": true,
-      "node": true
+      "es2017": true,
+      "es2020": true,
+      "es2021": true,
+      "node": true,
+      "serviceworker": true
     },
-    "extends": [
-      "eslint:recommended",
-      "plugin:compat/recommended",
-      "prettier",
-      "stylelint-config-prettier"
-    ],
-    "parser": "babel-eslint",
     "parserOptions": {
-      "ecmaVersion": 2020,
       "ecmaFeatures": {
         "globalReturn": true
       },
       "sourceType": "module"
     },
+    "extends": [
+      "eslint:recommended",
+      "airbnb-base",
+      "plugin:sonarjs/recommended",
+      "plugin:unicorn/recommended",
+      "prettier"
+    ],
     "plugins": [
-      "compat",
-      "immutable"
+      "immutable",
+      "sonarjs",
+      "svelte3",
+      "unicorn"
+    ],
+    "overrides": [
+      {
+        "files": [
+          "*.svelte"
+        ],
+        "processor": "svelte3/svelte3"
+      }
     ],
     "rules": {
-      "immutable/no-let": 1,
-      "immutable/no-this": 1,
-      "immutable/no-mutation": 1,
-      "no-var": 2,
-      "no-undef": 1,
-      "no-param-reassign": 2,
-      "lodash/prefer-lodash-method": [
-        2,
+      "immutable/no-let": "warn",
+      "immutable/no-this": "warn",
+      "immutable/no-mutation": "warn",
+      "import/prefer-default-export": "off",
+      "import/no-extraneous-dependencies": [
+        "error",
         {
-          "ignoreMethods": [
-            "endsWith",
-            "filter",
-            "forEach",
-            "startsWith",
-            "trim"
-          ]
+          "devDependencies": true
         }
       ],
+      "import/no-mutable-exports": "off",
+      "block-scoped-var": "error",
+      "complexity": [
+        "error",
+        10
+      ],
+      "dot-notation": "error",
+      "eqeqeq": "error",
+      "global-require": "off",
+      "guard-for-in": "error",
       "linebreak-style": [
-        2,
+        "error",
         "windows"
       ],
-      "no-bitwise": 2,
-      "eqeqeq": 2,
-      "guard-for-in": 2,
-      "no-extend-native": 2,
-      "wrap-iife": 2,
-      "no-use-before-define": 2,
-      "new-cap": 2,
-      "no-caller": 2,
-      "no-new": 2,
-      "no-plusplus": 2,
-      "quotes": [
-        2,
-        "double"
-      ],
-      "strict": 0,
-      "max-params": [
-        2,
+      "max-depth": [
+        "error",
         5
       ],
-      "max-depth": [
-        2,
+      "max-lines": [
+        "error",
+        100
+      ],
+      "max-lines-per-function": [
+        "error",
+        {
+          "max": 20,
+          "skipBlankLines": true,
+          "skipComments": true
+        }
+      ],
+      "max-nested-callbacks": [
+        "error",
+        3
+      ],
+      "max-params": [
+        "error",
         5
       ],
       "max-statements": [
-        2,
-        25
-      ],
-      "complexity": [
-        2,
+        "error",
         10
       ],
-      "no-eval": 2,
-      "block-scoped-var": 2,
-      "no-iterator": 2,
-      "no-loop-func": 2,
-      "no-multi-str": 2,
-      "no-proto": 2,
-      "no-script-url": 2,
+      "max-statements-per-line": "error",
+      "new-cap": "error",
+      "no-bitwise": "error",
+      "no-caller": "error",
+      "no-eval": "error",
+      "no-extend-native": "error",
+      "no-iterator": "error",
+      "no-loop-func": "error",
+      "no-multi-str": "error",
+      "no-new": "error",
+      "no-param-reassign": "error",
+      "no-plusplus": "error",
+      "no-proto": "error",
+      "no-script-url": "error",
       "no-shadow": [
-        2,
+        "error",
         {
           "hoist": "all",
           "allow": [
@@ -129,33 +151,64 @@
           ]
         }
       ],
-      "dot-notation": 2
+      "no-undef": "error",
+      "no-use-before-define": "error",
+      "no-var": "error",
+      "strict": [
+        "error",
+        "never"
+      ],
+      "unicorn/prevent-abbreviations": [
+        "error",
+        {
+          "replacements": {
+            "dev": false,
+            "pkg": false
+          }
+        }
+      ],
+      "wrap-iife": "error"
     },
     "globals": {}
   },
-  "eslintIgnore": [],
-  "// ============================== DEPENDENCIES ============================== ": "",
+  "// ============================== PRETTIER (Reload VS Code after change) ============================== ": "",
+  "prettier": {
+    "semi": false,
+    "svelteBracketNewLine": true,
+    "svelteIndentScriptAndStyle": false,
+    "svelteSortOrder": "scripts-markup-styles",
+    "trailingComma": "all"
+  },
+  "// ============================== SAPPER (20201017) ============================== ": "compression, polka, sirv",
   "dependencies": {
     "compression": "^1.7.1",
     "polka": "next",
     "sirv": "^1.0.0"
   },
-  "// ============================== DEV DEPENDENCIES ============================== ": "",
+  "// ============================== SAPPER (20201017 - DEV) ============================== ": "file-loader, sapper, svelte, svelte-loader, webpack, webpack-modules",
   "devDependencies": {
-    "@babel/core": "^7.11.1",
-    "@babel/preset-env": "^7.11.0",
-    "babel-eslint": "^10.1.0",
-    "babel-loader": "^8.1.0",
-    "eslint": "^7.6.0",
-    "eslint-config-prettier": "^6.11.0",
-    "eslint-plugin-compat": "^3.8.0",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.0.5",
-    "sapper": "^0.27.0",
-    "stylelint-config-prettier": "^8.0.2",
-    "svelte": "^3.0.0",
-    "svelte-loader-hot": "^0.3.0",
-    "svelte-preprocess": "^4.0.10",
+    "@fullhuman/postcss-purgecss": "^3.0.0",
+    "autoprefixer": "^10.0.4",
+    "eslint": "^7.14.0",
+    "eslint-config-airbnb-base": "^14.2.1",
+    "eslint-config-prettier": "^6.15.0",
+    "eslint-plugin-immutable": "^1.0.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-sonarjs": "^0.5.0",
+    "eslint-plugin-svelte3": "^2.7.3",
+    "eslint-plugin-unicorn": "^23.0.0",
+    "file-loader": "^6.0.0",
+    "postcss": "^8.1.14",
+    "postcss-load-config": "^3.0.0",
+    "prettier": "^2.2.1",
+    "prettier-plugin-tailwind": "^2.2.6",
+    "sapper": "^0.28.0",
+    "sass": "^1.30.0",
+    "svelte": "^3.17.3",
+    "svelte-loader": "^2.9.0",
+    "svelte-preprocess": "^4.6.1",
+    "svelte-prettier-plugin": "npm:prettier-plugin-svelte@^1.4.1",
+    "tailwindcss": "^2.0.1",
     "webpack": "^4.7.0",
     "webpack-modules": "^1.0.0"
   }
