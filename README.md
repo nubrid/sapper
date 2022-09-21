@@ -1,3 +1,17 @@
+# NOTE: Last sapper update before I transition to sveltekit
+
+# TODO: List
+
+- CSP
+- CoffeeScript (for Test Script)
+- Babel, Pug
+- Material UI
+- TDD (Chai, Sinon, Mocha, Karma)
+- Eslint Plugins (eslint-plugin-compat)
+- Image Optimize (imagemin, svg-sprite)
+- NPM Modules (npm-check-updates)
+- PWA, Service Workers, WebSockets
+
 # [Svelte for VS Code](https://github.com/sveltejs/language-tools/tree/master/packages/svelte-vscode)
 
 ## [Prettier for Svelte 3](https://github.com/sveltejs/prettier-plugin-svelte)
@@ -33,56 +47,107 @@ npm i -D svelte-prettier-plugin@npm:prettier-plugin-svelte
 
 ### [Svelte preprocess](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/getting-started.md)
 
-```bash
-npm i -D svelte-preprocess
-# TODO: babel, pug, etc
-npm i -D sass postcss autoprefixer
-```
+#### [... with Webpack (svelte-loader)](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/usage.md#with-svelte-loader)
 
-#### [With Webpack (svelte-loader)](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/usage.md#with-svelte-loader)
-
-#### [With Svelte VS Code](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/usage.md#with-svelte-vs-code)
+#### [... with Svelte VS Code](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/usage.md#with-svelte-vs-code)
 
 #### [TODO: Babel](https://github.com/sveltejs/svelte-preprocess#modern-javascript-syntax)
 
-#### [TODO: PostCSS](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/preprocessing.md#postcss-sugarss)
-
 #### [Global CSS Styles](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/preprocessing.md#globalstyle)
 
-#### Global Replace Values [here](https://github.com/sveltejs/svelte-preprocess#replace-values) and [here](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/preprocessing.md#replace)
+#### Global replace values [here](https://github.com/sveltejs/svelte-preprocess#replace-values) and [here](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/preprocessing.md#replace)
 
 ## [FIXME: Pug for Svelte](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/preprocessing.md#pug)
 
-> NOTE: Prettier reformats
-
 <!--prettier-ignore-start-->
 ```html
+<!-- Prettier reformats -->
 <template lang="pug">
-```
-<!--prettier-ignore-end-->
 
-> into
-
-<!--prettier-ignore-start-->
-```html
+<!-- into -->
 <template
   lang="pug"
 >
+
+<!-- leading to Pug syntax highlighting to not work. -->
 ```
 <!--prettier-ignore-end-->
 
-> leading to Pug syntax highlighting to not work. Could be related to [this issue](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/getting-started.md#31-setting-default-languages).
+> See [this issue](https://github.com/sveltejs/svelte-preprocess/blob/main/docs/getting-started.md#31-setting-default-languages)
 
-## [TailwindCSS for Svelte](https://dev.to/sarioglu/using-svelte-with-tailwindcss-a-better-approach-47ph)
+## [PostCSS + TailwindCSS for Svelte](https://www.apostrof.co/blog/getting-tailwind-css-to-integrate-nicely-with-svelte-sapper/)
+
+```bash
+npm i -D postcss autoprefixer postcss-loader css-loader
+# postcss-load-config not needed
+```
 
 ```html
-<!-- TailwindCSS.svelte -->
-<style global lang="postcss">
-  @tailwind base;
-  @tailwind components;
-  @tailwind utilities;
+<!--
+  ./src/routes/_layout.svelte
+  ./src/routes/_error.svelte
+-->
+<script>
+  import "tailwindcss/tailwind.css"
+</script>
+```
+
+```js
+// webpack.config.js
+module: {
+  rules: [
+    {
+      test: /\.(pcss|css)$/i,
+      use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+    },
+  ]
+}
+```
+
+### [Slow TailwindCSS](https://github.com/sveltejs/svelte-preprocess/issues/275)
+
+> NOTE: Delete `postcss: true` option under `svelte-preprocess`. If tailwindcss is slow:
+
+```html
+<!-- Use this to import css/pcss -->
+<script>
+  import "src/styles/mystyle.css"
+</script>
+
+<!-- instead of this -->
+<style global>
+  @import "src/styles/mystyle.css";
 </style>
 ```
+
+### [Extracting CSS](https://github.com/sveltejs/svelte-loader#extracting-css)
+
+> NOTE: Use `mini-css-extract-plugin` instead of `extract-text-webpack-plugin`
+
+### [Removing unused CSS](https://tailwindcss.com/docs/optimizing-for-production#removing-unused-css)
+
+```js
+// ./tailwind.config.js
+purge: {
+  enabled: process.env.NODE_ENV !== "development",
+  content: [
+    "./src/routes/**/*.html",
+    "./src/routes/**/*.svelte",
+    "./src/components/**/*.html",
+    "./src/components/**/*.svelte",
+  ],
+  options: {
+    safelist: [/svelte-/],
+    defaultExtractor: (content) => content.match(/[\w/:-]+/g) || [], // NOTE: /[A-Za-z0-9-_:/]+/g) || [],
+  },
+},
+```
+
+### [PostCSS + PreCSS (SASS)](https://github.com/jonathantneal/precss)
+
+### [TODO: PostCSS + Plugins](https://github.com/postcss/postcss/blob/main/docs/plugins.md)
+
+### [Build-time imports](https://tailwindcss.com/docs/using-with-preprocessors#build-time-imports) (NOTE: **Not used** for performance reason)
 
 ## [Syntax highlighting](https://github.com/sveltejs/language-tools/blob/master/docs/README.md#adjust-syntax-highlighting-of-svelte-files)
 
@@ -110,7 +175,7 @@ npx browserslist
 
 # ===============
 
-# SAPPER (20201017)
+# NOTE: SAPPER (20201017)
 
 # sapper-template
 

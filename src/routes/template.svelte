@@ -21,5 +21,5 @@ TODO: Describe component
   <!-- TODO: HTML goes here -->
 </template>
 
-<style lang="scss">
+<style>
 </style>

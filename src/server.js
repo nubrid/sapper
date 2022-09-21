@@ -1,7 +1,13 @@
+import dotenv from "dotenv"
+
+dotenv.config()
+
+/* eslint-disable no-console, import/no-extraneous-dependencies, import/first, unicorn/prevent-abbreviations */
+
+// NOTE: SAPPER (20201017)
 import sirv from "sirv"
 import polka from "polka"
 import compression from "compression"
-// eslint-disable-next-line import/no-extraneous-dependencies
 import * as sapper from "@sapper/server"
 
 const { PORT, NODE_ENV } = process.env
@@ -13,7 +19,6 @@ polka() // You can also use Express
     sirv("static", { dev }),
     sapper.middleware(),
   )
-  .listen(PORT, (error) => {
-    // eslint-disable-next-line no-console
-    if (error) console.log("error", error)
+  .listen(PORT, (err) => {
+    if (err) console.log("error", err)
   })

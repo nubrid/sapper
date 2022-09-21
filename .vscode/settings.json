@@ -61,6 +61,7 @@
     }
   ],
   "workbench.activityBar.visible": false,
+  "workbench.editor.pinnedTabSizing": "compact",
   "workbench.sideBar.location": "right",
   "editor.guides.indentation": true
 }

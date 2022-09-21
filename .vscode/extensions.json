@@ -17,6 +17,7 @@
     // TODO: Revisit "mtxr.sqltools",
     "svelte.svelte-vscode",
     "dracula-theme.theme-dracula",
+    "fivethree.vscode-svelte-snippets",
     "wayou.vscode-todo-highlight",
     "chakrounanas.turbo-console-log",
     "kamikillerto.vscode-colorize",

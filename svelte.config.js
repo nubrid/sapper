@@ -9,15 +9,8 @@ module.exports = {
     // defaults: {
     //   markup: "pug",
     //   script: "javascript",
-    //   style: "scss",
+    //   style: "postcss",
     // },
-    postcss: {
-      plugins: [require("autoprefixer")()],
-    },
-    scss: {
-      // eslint-disable-next-line quotes
-      prependData: `@import "./static/variables.scss";`,
-    },
   }),
   // NOTE: https://github.com/sveltejs/svelte-loader/issues/67#issuecomment-706740142
   // onwarn: (warning, handleWarning) =>

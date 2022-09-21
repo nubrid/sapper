@@ -25,7 +25,7 @@ import successkid from "images/successkid.jpg"
   </p>
 </template>
 
-<style lang="scss">
+<style>
 h1,
 figure,
 p {

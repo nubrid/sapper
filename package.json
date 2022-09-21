@@ -8,7 +8,7 @@
     "// ============================== CLI ============================== ": "",
     "// ============================== BATCH JOBS ============================== ": "",
     "// ============================== SERVERS ============================== ": "",
-    "// ============================== SAPPER (20201017) ============================== ": "",
+    "// ============================== NOTE: SAPPER (20201017) ============================== ": "",
     "dev": "sapper dev",
     "build": "sapper build",
     "export": "sapper export",
@@ -163,7 +163,8 @@
         {
           "replacements": {
             "dev": false,
-            "pkg": false
+            "pkg": false,
+            "src": false
           }
         }
       ],
@@ -179,37 +180,40 @@
     "svelteSortOrder": "scripts-markup-styles",
     "trailingComma": "all"
   },
-  "// ============================== SAPPER (20201017) ============================== ": "compression, polka, sirv",
+  "// ============================== NOTE: SAPPER (20201017) ============================== ": "compression, polka, sirv",
   "dependencies": {
     "compression": "^1.7.1",
     "polka": "next",
-    "sirv": "^1.0.0"
+    "sirv": "^1.0.10"
   },
   "// ============================== SAPPER (20201017 - DEV) ============================== ": "file-loader, sapper, svelte, svelte-loader, webpack, webpack-modules",
   "devDependencies": {
-    "@fullhuman/postcss-purgecss": "^3.0.0",
-    "autoprefixer": "^10.0.4",
-    "eslint": "^7.14.0",
+    "autoprefixer": "^10.1.0",
+    "css-loader": "^5.0.1",
+    "dotenv": "^8.2.0",
+    "eslint": "^7.15.0",
     "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-prettier": "^6.15.0",
+    "eslint-config-prettier": "^7.0.0",
     "eslint-plugin-immutable": "^1.0.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-sonarjs": "^0.5.0",
     "eslint-plugin-svelte3": "^2.7.3",
     "eslint-plugin-unicorn": "^23.0.0",
     "file-loader": "^6.0.0",
-    "postcss": "^8.1.14",
-    "postcss-load-config": "^3.0.0",
+    "mini-css-extract-plugin": "^1.3.3",
+    "postcss": "^8.2.1",
+    "postcss-loader": "^4.1.0",
+    "precss": "^4.0.0",
     "prettier": "^2.2.1",
-    "prettier-plugin-tailwind": "^2.2.6",
+    "prettier-plugin-tailwind": "^2.2.8",
     "sapper": "^0.28.0",
-    "sass": "^1.30.0",
-    "svelte": "^3.17.3",
+    "svelte": "^3.31.0",
     "svelte-loader": "^2.9.0",
     "svelte-preprocess": "^4.6.1",
-    "svelte-prettier-plugin": "npm:prettier-plugin-svelte@^1.4.1",
-    "tailwindcss": "^2.0.1",
+    "svelte-prettier-plugin": "npm:prettier-plugin-svelte@^1.4.2",
+    "tailwindcss": "^2.0.2",
     "webpack": "^4.7.0",
+    "webpack-bundle-analyzer": "^4.2.0",
     "webpack-modules": "^1.0.0"
   }
 }

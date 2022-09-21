@@ -27,7 +27,7 @@ export let posts
   </ul>
 </template>
 
-<style lang="scss">
+<style>
 ul {
   margin: 0 0 1em 0;
   line-height: 1.5;

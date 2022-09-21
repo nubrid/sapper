@@ -1,4 +1,41 @@
-// SAPPER (20201017)
+/* eslint-disable max-lines, immutable/no-mutation */
+// NOTE: const { BundleAnalyzerPlugin } = require("webpack-bundle-analyzer")
+const MiniCssExtractPlugin = require("mini-css-extract-plugin")
+
+const customModuleRules = [
+  // TODO: Add babel
+  // {
+  //   test: /\.(js|mjs)$/,
+  //   loader: "babel-loader",
+  //   exclude: /node_modules\/(?!svelte)/,
+  //   options: {
+  //     presets: [
+  //       [
+  //         "@babel/env",
+  //         {
+  //           loose: true,
+  //           modules: false,
+  //         },
+  //       ],
+  //     ],
+  //     plugins: [],
+  //   },
+  // },
+  {
+    test: /\.(scss|pcss|css)$/i,
+    use: [MiniCssExtractPlugin.loader, "css-loader", "postcss-loader"],
+  },
+]
+const customPlugins = [new MiniCssExtractPlugin()] // NOTE: , new BundleAnalyzerPlugin()]
+const customClientOptions = {
+  // fast; original source (lines only)
+  // devtool:
+  //   process.env.NODE_ENV === "development" && "eval-cheap-module-source-map",
+  // faster; transformed code (lines only)
+  devtool: process.env.NODE_ENV === "development" && "eval-cheap-source-map",
+}
+
+// NOTE: SAPPER (20201017)
 const webpack = require("webpack")
 const WebpackModules = require("webpack-modules")
 const path = require("path")
@@ -16,7 +53,6 @@ const fileLoaderRule = {
   use: ["file-loader"],
 }
 
-// eslint-disable-next-line immutable/no-mutation
 module.exports = {
   client: {
     entry: config.client.entry(),
@@ -29,14 +65,15 @@ module.exports = {
           use: {
             loader: "svelte-loader",
             options: {
-              ...require("./svelte.config"),
               dev,
               hydratable: true,
               hotReload: false, // pending https://github.com/sveltejs/svelte/issues/2377
+              ...require("./svelte.config"), // NOTE: SAPPER (20201017)
             },
           },
         },
         fileLoaderRule,
+        ...customModuleRules, // NOTE: SAPPER (20201017)
       ],
     },
     mode,
@@ -47,8 +84,10 @@ module.exports = {
         "process.browser": true,
         "process.env.NODE_ENV": JSON.stringify(mode),
       }),
+      ...customPlugins, // NOTE: SAPPER (20201017)
     ].filter(Boolean),
     devtool: dev && "inline-source-map",
+    ...customClientOptions, // NOTE: SAPPER (20201017)
   },
 
   server: {
@@ -64,19 +103,20 @@ module.exports = {
           use: {
             loader: "svelte-loader",
             options: {
-              ...require("./svelte.config"),
               css: false,
               generate: "ssr",
               hydratable: true,
               dev,
+              ...require("./svelte.config"), // NOTE: SAPPER (20201017)
             },
           },
         },
         fileLoaderRule,
+        ...customModuleRules, // NOTE: SAPPER (20201017)
       ],
     },
     mode,
-    plugins: [new WebpackModules()],
+    plugins: [new WebpackModules(), ...customPlugins], // NOTE: SAPPER (20201017)
     performance: {
       hints: false, // it doesn't matter if server.js is large
     },
